@@ -70,6 +70,6 @@ From the data set in step 4, creates a second, independent tidy data set with th
 
 2. Write dataset to a txt file
 
-            write.table(ds_tidy, file="./tidy_dataset.txt", row.names=FALSE, col.names=FALSE, sep="\t", quote=FALSE)
+            write.table(ds_tidy, file="./tidy_dataset.txt", row.names=FALSE, col.names=TRUE, sep="\t", quote=FALSE)
 
 That is it. 
