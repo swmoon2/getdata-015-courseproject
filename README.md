@@ -28,11 +28,12 @@ Course Project submission repository for Getting and Cleaning Data courese.
 3. Remove temporary data
 
 ### Task 4.
-> Appropriately labels the data set with descriptive variable names. 
-> > # Using gsub function, change the column names of dataset
-> > names(ds_extracted) <- gsub(".mean","Mean", names(ds_extracted))
-> > names(ds_extracted) <- gsub(".std","Std", names(ds_extracted))
-> > names(ds_extracted) <- gsub("\\.","", names(ds_extracted))
+Appropriately labels the data set with descriptive variable names. 
+Using gsub function, change the column names of dataset
+
+    names(ds_extracted) <- gsub(".mean","Mean", names(ds_extracted))
+    names(ds_extracted) <- gsub(".std","Std", names(ds_extracted))
+    names(ds_extracted) <- gsub("\\.","", names(ds_extracted))
 
 # Task 5.
 # From the data set in step 4, creates a second, independent tidy data set 
