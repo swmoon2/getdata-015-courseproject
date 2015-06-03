@@ -38,8 +38,8 @@ Extracts only the measurements on the mean and standard deviation for each measu
 
 2. Select columns which contains "mean" and "std"
 
-            ds_extracted <- select(ds_merged, subjectID, activity, 
-                               contains(".mean"), contains(".std"), -contains(".meanFreq"))
+        ds_extracted <- select(ds_merged, subjectID, activity, 
+                       contains(".mean"), contains(".std"), -contains(".meanFreq"))
 
 ### Task 3.
 Uses descriptive activity names to name the activities in the data set
