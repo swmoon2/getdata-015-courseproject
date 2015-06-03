@@ -16,30 +16,23 @@ Course Project submission repository for Getting and Cleaning Data courese.
 
 ### Task 2.
 > Extracts only the measurements on the mean and standard deviation for each measurement. 
-## 2.1 Make column names unique before select
-names(ds_merged) <- make.names(names=names(ds_merged), unique=TRUE)
 
-## 2.2 Select columns which contains "mean" and "std"
-ds_extracted <- select(ds_merged, subjectID, activity, 
-                       contains(".mean"), contains(".std"), -contains(".meanFreq"))
+1. Make column names unique before select
+2. Select columns which contains "mean" and "std"
 
-# Task 3.
-# Uses descriptive activity names to name the activities in the data set
-## 3.1 Read activity labels from file
-activity_labels <- read.table("./data/activity_labels.txt", stringsAsFactors=FALSE)
+### Task 3.
+> Uses descriptive activity names to name the activities in the data set
 
-## 3.2 Change activity levels to factor type with descriptive labels
-ds_extracted$activity <- as.factor(ds_extracted$activity)
-levels(ds_extracted$activity) <- activity_labels$V2
+1. Read activity labels from file
+2. Change activity levels to factor type with descriptive labels
+3. Remove temporary data
 
-## 3.3 Remove temporary data
-rm(activity_labels)
-
-# Task 4.
-# Appropriately labels the data set with descriptive variable names. 
-names(ds_extracted) <- gsub(".mean","Mean", names(ds_extracted))
-names(ds_extracted) <- gsub(".std","Std", names(ds_extracted))
-names(ds_extracted) <- gsub("\\.","", names(ds_extracted))
+### Task 4.
+> Appropriately labels the data set with descriptive variable names. 
+> > # Using gsub function, change the column names of dataset
+> > names(ds_extracted) <- gsub(".mean","Mean", names(ds_extracted))
+> > names(ds_extracted) <- gsub(".std","Std", names(ds_extracted))
+> > names(ds_extracted) <- gsub("\\.","", names(ds_extracted))
 
 # Task 5.
 # From the data set in step 4, creates a second, independent tidy data set 
