@@ -1,7 +1,7 @@
 # getdata-015-courseproject
 Course Project submission repository for Getting and Cleaning Data courese.
 
-## analysis.R
+## run_analysis.R
 R script for the Course Project of "Getting and Cleaning data" 
 by Sungwook Moon  
 Assumption: project data files are under the folder named "data" of working directory
