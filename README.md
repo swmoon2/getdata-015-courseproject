@@ -34,7 +34,7 @@ Extracts only the measurements on the mean and standard deviation for each measu
 
 1. Make column names unique before select
 
-    names(ds_merged) <- make.names(names=names(ds_merged), unique=TRUE)
+        names(ds_merged) <- make.names(names=names(ds_merged), unique=TRUE)
 
 2. Select columns which contains "mean" and "std"
 
