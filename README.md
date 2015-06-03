@@ -8,6 +8,7 @@ Course Project submission repository for Getting and Cleaning Data courese.
 
 ### Task 1.
 > Merges the training and the test sets to create one data set.
+
 1. Read train datasets
 2. Read test datasets
 3. Merge both datasets and set column names
