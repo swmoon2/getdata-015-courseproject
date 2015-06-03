@@ -10,6 +10,7 @@ Assumption: project data files are under the folder named "data" of working dire
 Merges the training and the test sets to create one data set.
 
 1. Read train data files which are under the folder train and bind subject id, activity level and train data
+
         subject_train <- read.table("./data/train/subject_train.txt", stringsAsFactors=FALSE)
         ylabel_train <- read.table("./data/train/y_train.txt") 
         ds_train <- read.table("./data/train/X_train.txt")
