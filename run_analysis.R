@@ -54,6 +54,7 @@ rm(activity_labels)
 names(ds_extracted) <- gsub(".mean","Mean", names(ds_extracted))
 names(ds_extracted) <- gsub(".std","Std", names(ds_extracted))
 names(ds_extracted) <- gsub("\\.","", names(ds_extracted))
+names(ds_extracted) <- gsub("BodyBody","Body", names(ds_extracted))
 
 # Task 5.
 # From the data set in step 4, creates a second, independent tidy data set 
