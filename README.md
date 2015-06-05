@@ -60,6 +60,7 @@ Using gsub function, change the column names of dataset
     names(ds_extracted) <- gsub(".mean","Mean", names(ds_extracted))
     names(ds_extracted) <- gsub(".std","Std", names(ds_extracted))
     names(ds_extracted) <- gsub("\\.","", names(ds_extracted))
+    names(ds_extracted) <- gsub("BodyBody","Body", names(ds_extracted))
 
 ### Task 5.
 From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
