@@ -3,26 +3,32 @@
 # assumption: project data files are under the folder named "data" of working directory
 
 ## load packages required
+library(plyr)
 library(dplyr)
 library(tidyr)
 
 # Task 1.
 # Merges the training and the test sets to create one data set.
+## 1.0 Download project file
+temp <- tempfile()
+fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+download.file(fileUrl, temp, method="curl")
+
 ## 1.1 Read train datasets
-subject_train <- read.table("./data/train/subject_train.txt", stringsAsFactors=FALSE)
-ylabel_train <- read.table("./data/train/y_train.txt") 
-ds_train <- read.table("./data/train/X_train.txt")  # read train dataset 7,352 obs.
+subject_train <- read.table(unz(temp, "UCI HAR Dataset/train/subject_train.txt"), stringsAsFactors=FALSE)
+ylabel_train <- read.table(unz(temp, "UCI HAR Dataset/train/y_train.txt")) 
+ds_train <- read.table(unz(temp, "UCI HAR Dataset/train/X_train.txt"))  # read train dataset 7,352 obs.
 ds_train <- cbind(subject_train, ylabel_train, ds_train)
 
 ## 1.2 Read test datasets
-subject_test <- read.table("./data/test/subject_test.txt", stringsAsFactors=FALSE)
-ylabel_test <- read.table("./data/test/y_test.txt") 
-ds_test <- read.table("./data/test/X_test.txt")  # read test dataset 2,947 obs.
+subject_test <- read.table(unz(temp, "UCI HAR Dataset/test/subject_test.txt"), stringsAsFactors=FALSE)
+ylabel_test <- read.table(unz(temp, "UCI HAR Dataset/test/y_test.txt"))
+ds_test <- read.table(unz(temp, "UCI HAR Dataset/test/X_test.txt"))  # read test dataset 2,947 obs.
 ds_test <- cbind(subject_test, ylabel_test, ds_test)
 
 ## 1.3 Merge both datasets and set column names
 ds_merged <- rbind(ds_train, ds_test)
-hdr <- read.table("./data/features.txt", stringsAsFactors=FALSE)  # read column header
+hdr <- read.table(unz(temp, "UCI HAR Dataset/features.txt"), stringsAsFactors=FALSE)  # read column header
 names(ds_merged) <- c("subjectID", "activity", hdr$V2) # set column names for the merged dataset
 
 ## 1.4 Remove temporary datasets
@@ -40,7 +46,7 @@ ds_extracted <- select(ds_merged, subjectID, activity,
 # Task 3.
 # Uses descriptive activity names to name the activities in the data set
 ## 3.1 Read activity labels from file
-activity_labels <- read.table("./data/activity_labels.txt", stringsAsFactors=FALSE)
+activity_labels <- read.table(unz(temp, "UCI HAR Dataset/activity_labels.txt"), stringsAsFactors=FALSE)
 
 ## 3.2 Change activity levels to factor type with descriptive labels
 ds_extracted$activity <- as.factor(ds_extracted$activity)
@@ -65,4 +71,7 @@ ds_tidy <- ddply(ds_extracted, .(subjectID, activity), colwise(mean))
 ## 5.2 Write dataset to a txt file
 write.table(ds_tidy, file="./tidy_dataset.txt", row.names=FALSE, col.names=TRUE, sep="\t", quote=FALSE)
 
+## Finally disconnect and remove tempfile
+unlink(temp)
+rm(temp,fileUrl)
 ## end of script
