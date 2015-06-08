@@ -4,16 +4,21 @@ Course Project submission repository for Getting and Cleaning Data courese.
 ## run_analysis.R
 R script for the Course Project of "Getting and Cleaning data" 
 by Sungwook Moon  
-Assumption: project data files are under the folder named "data" of working directory
 
 ### Task 1.
 Merges the training and the test sets to create one data set.
 
+1. Download project data
+ 
+        temp <- tempfile()
+        fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+        download.file(fileUrl, temp, method="curl")
+
 1. Read train data files which are under the folder train and bind subject id, activity level and train data
 
-        subject_train <- read.table("./data/train/subject_train.txt", stringsAsFactors=FALSE)
-        ylabel_train <- read.table("./data/train/y_train.txt") 
-        ds_train <- read.table("./data/train/X_train.txt")
+        subject_train <- read.table(unz(temp, "UCI HAR Dataset/train/subject_train.txt"), stringsAsFactors=FALSE)
+        ylabel_train <- read.table(unz(temp, "UCI HAR Dataset/train/y_train.txt")) 
+        ds_train <- read.table(unz(temp, "UCI HAR Dataset/train/X_train.txt"))  # read train dataset 7,352 obs.
         ds_train <- cbind(subject_train, ylabel_train, ds_train)
 
 2. Read test data files which are under the folder test and bind subject id, activity level and test data
@@ -26,7 +31,7 @@ Merges the training and the test sets to create one data set.
 3. Merge both datasets and set column names
 
         ds_merged <- rbind(ds_train, ds_test)
-        hdr <- read.table("./data/features.txt", stringsAsFactors=FALSE)
+        hdr <- read.table(unz(temp, "UCI HAR Dataset/features.txt"), stringsAsFactors=FALSE)  # read column header
         names(ds_merged) <- c("subjectID", "activity", hdr$V2)
 
 ### Task 2.
@@ -46,7 +51,7 @@ Uses descriptive activity names to name the activities in the data set
 
 1. Read activity labels from file
         
-        activity_labels <- read.table("./data/activity_labels.txt", stringsAsFactors=FALSE)
+        activity_labels <- read.table(unz(temp, "UCI HAR Dataset/activity_labels.txt"), stringsAsFactors=FALSE)
 
 2. Change activity levels to factor type with descriptive labels
         
@@ -72,5 +77,11 @@ From the data set in step 4, creates a second, independent tidy data set with th
 2. Write dataset to a txt file
 
             write.table(ds_tidy, file="./tidy_dataset.txt", row.names=FALSE, col.names=TRUE, sep="\t", quote=FALSE)
+
+3. Disconnect and remove tempfile
+
+            unlink(temp)
+            rm(temp,fileUrl)
+
 
 That is it. 
